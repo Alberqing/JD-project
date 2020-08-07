@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "jd-project",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -34,6 +34,7 @@
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "typescript": "~3.9.3",
+    "vue-loader": "^16.0.0-beta.4",
     "vue-template-compiler": "^2.6.11"
   }
 }
