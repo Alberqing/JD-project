@@ -25,10 +25,14 @@ module.exports = {
     // .loader(path.resolve(__dirname, './config/route-loader'))
     chainWebpack: config => {
         config.module
-          .rule('route')
-          .test(/src\/router\/routers\.js$/)
-            .use(path.resolve(__dirname, '/config/route-loader'))
-            .loader(path.resolve(__dirname, '/config/route-loader'))
+            .rule('route')
+            .test(/\.js$/)
+            .exclude
+                .add(/node_modules/)
+                .add(/config/)
+                .end()
+            .use(path.resolve(__dirname, './config/route-loader'))
+            .loader(path.resolve(__dirname, './config/route-loader'))
             .end()
     }
 }

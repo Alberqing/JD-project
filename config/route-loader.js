@@ -8,6 +8,9 @@ module.exports = function() {
 
     const pages = path.join(routePagePath, '../views/*.vue');
 
+     // 将路由页面所在目录添加到依赖当中，当有文件变化，会触发这个loader
+    this.addContextDependency(pages);
+
     const fileNames = globby.sync(pages, {ignore: [], absolute: true});
 
     const PAGE_ROUTE = /export const PAGE_ROUTE = [ ]*['"]([^'"]+)['"][;]*/gm;
@@ -47,21 +50,11 @@ module.exports = function() {
             path: '${result.path}',
             component: ${result.component}
         }`);
-
-        // console.log(content.match(PAGE_ROUTE));
-        // console.log(content.match(LAZY_LOAD));
     });
 
     fs.writeFile(path.resolve(__dirname, '../src/router/routers.js'), `export default [${routes}]`, {encoding: "utf8"}, (err) => {
         console.log(err);
     })
-    console.log(222222222222222);
-    return `export default [${routes}]`
+    return `// 此文件是通过脚本生成的，直接编辑无效！！！
+            export default [${routes}]`
 }
-
-// console.log(`// 此文件是通过脚本生成的，直接编辑无效！！！
-// export default routes = ${routes}
-//     `);
-// return `// 此文件是通过脚本生成的，直接编辑无效！！！
-// export default routes = ${routes}
-//     `;

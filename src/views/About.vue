@@ -9,7 +9,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-export const PAGE_ROUTE = '/about111';
+export const PAGE_ROUTE = '/about11';
 export const LAZY_LOAD = false;
 
 @Component
