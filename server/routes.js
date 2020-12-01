@@ -1,7 +1,15 @@
-const router = require('koa-router')();
+const Router = require('koa-router');
 
-router.get('/app/home', (ctx, next) => {
-    ctx.body = 'home';
+const router = new Router();
+
+
+router.get('/', (ctx, next) => {
+    const context = {
+        title: "ssr test",
+        url: ctx.url
+    };
+    console.log(context, "/app/home");
+    ctx.serverRender(context);
 })
 
-module.exports = router;
+module.exports = router.routes();

@@ -1,8 +1,13 @@
 import Vue from 'vue';
 import App from './App.vue';
-import './registerServiceWorker';
 import { createRouter } from './router';
 import { createStore } from './store';
+
+declare let process: Window & { client: any };
+
+if (process.client) {
+    require('./registerServiceWorker');
+}
 
 Vue.config.productionTip = false;
 
