@@ -9,10 +9,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-export const PAGE_ROUTE = '/about11';
+export const PAGE_ROUTE = '/about1111';
 export const LAZY_LOAD = false;
 
-@Component
-export default class About extends Vue {
-}
+
+export default {
+  name: 'About',
+};
 </script>

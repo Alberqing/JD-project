@@ -4,10 +4,10 @@ const fs = require('fs');
 
 
 module.exports = function() {
-    const routePagePath = path.resolve(__dirname, '../src/router');
+    const routePagePath = path.resolve(__dirname, './src/views');
+    const pages = path.join(routePagePath, './*.vue')
 
-    const pages = path.join(routePagePath, '../views/*.vue');
-
+    console.log(pages);
      // 将路由页面所在目录添加到依赖当中，当有文件变化，会触发这个loader
     this.addContextDependency(pages);
 
@@ -25,6 +25,7 @@ module.exports = function() {
             return /^\/{2,}/.test(word) || /^\/\*/.test(word) ? '' : word;
         });
         let block = null;
+        let chunkName = null;
 
         while ((block = PAGE_ROUTE.exec(noCommentContent)) !== null) {
             const match = block[0] && block[1];
@@ -33,28 +34,32 @@ module.exports = function() {
             if (match) {
                 if (!result) result = {};
                 result.path = block[1];
+                result.name = block[1].split('/')[1];
+                chunkName = block[1].split('/')[1];
             }
         }
         
         if(content.match(LAZY_LOAD) !== null) {
-            if(content.match(LAZY_LOAD)[0].split('=')[1]) {
-                result.component = `() => import(/* webpackChunkName: "about" */ '${fileName}')`
+            if(content.match(LAZY_LOAD)[0].split('=')[1].trim() !== 'false') {
+                result.component = `() => import(/* webpackChunkName: '${chunkName}' */ '${fileName}')`
             } else {
                 result.component = `() => import('${fileName}')`
             }
         } else {
-            result.component = `() => import('${fileName}')`
+            result.component = `() => import(/* webpackChunkName: '${chunkName}' */ '${fileName}')`
         }
-
-        routes.push(`{
-            path: '${result.path}',
-            component: ${result.component}
-        }`);
+        routes.push(`    {
+        path: '${result.path}',
+        component: ${result.component},
+    }`);
     });
 
-    fs.writeFile(path.resolve(__dirname, '../src/router/routers.js'), `export default [${routes}]`, {encoding: "utf8"}, (err) => {
+    const res = `// 此文件是通过脚本生成的，直接编辑无效！！！
+export const routers = [
+${routes.join(',\r\n')},
+];
+`
+    fs.writeFile(path.resolve(__dirname, '../src/views/routers.ts'), res, {encoding: "utf8"}, (err) => {
         console.log(err);
     })
-    return `// 此文件是通过脚本生成的，直接编辑无效！！！
-            export default [${routes}]`
 }

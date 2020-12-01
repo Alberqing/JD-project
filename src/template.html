@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ seoData.title }}</title>
+    <meta name="referrer" content="always">
+    <meta charset="utf-8">
+    <meta name="viewport" content="
+    width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <link rel="shortcut icon" href="//static.yximgs.com/s1/i/favicon-eb2e5f4482.ico" type="image/x-icon">
+    <script type="text/javascript">
+    (function a() {
+        var docEl = document.documentElement;
+        var width = document.documentElement.clientWidth;
+        var originSize = width / 7.5;
+        docEl.style.fontSize = originSize + 'px';
+        // 修正系统字体调整造成的布局问题
+        var realSize = parseFloat(window.getComputedStyle(docEl).fontSize);
+        if (originSize !== realSize) {
+            var e = originSize * (originSize / realSize);
+            docEl.style.fontSize = e + 'px';
+        }
+        window.addEventListener('resize', a);
+    })();
+    </script>
+</head>
+<body>
+    <div id="app">
+        <!--vue-ssr-outlet-->
+    </div>
+</body>
+</html>
