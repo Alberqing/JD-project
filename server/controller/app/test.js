@@ -1,7 +1,16 @@
+const serverRender = require('../../middleware/serverRender');
+
+console.log(serverRender());
+
 async function ssrRender(ctx, tplData) {
-    console.log(ctx.path);
     const context = Object.assign({
-        router: ctx.path,
+        router: ctx.url,
     });
-    await ctx.serverRender(context);
+    serverRender(context).then(res => {
+        res();
+    });
+}
+
+exports.get = async function() {
+    await ssrRender({url: '/app/test'});
 }

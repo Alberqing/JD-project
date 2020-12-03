@@ -23,24 +23,13 @@ const renderToString = function (context) {
     });
 };
 module.exports = async (ctx, next) => {
-    ctx.serverRender = async context => {
-        try {
-            const html = await new Promise((resolve, reject) => {
-                renderer.renderToString(context, (err, html) => {
-                    if (err) {
-                        reject(err);
-                        return;
-                    }
-                    resolve(html);
-                });
-            });
-
-            ctx.body = html;
-            ctx.type = 'text/html';
-        } catch (err) {
-            console.log(err, '======');
-        }
+    return async function serverRender(context) {
+        const html = await renderToString(context);
+        console.log(html);
+        ctx.body = html;
+        ctx.type = 'text/html';
     };
-
-    await next();
+    // console.log(ctx);
+    // console.log(next, 6789);
+    // await next();
 };

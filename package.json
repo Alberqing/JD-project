@@ -11,7 +11,7 @@
     "start": "npm run build:server && npm run build:client && npm run service",
     "build:client": "cross-env RUN_ENV=client vue-cli-service build",
     "build:server": "cross-env RUN_ENV=server vue-cli-service build --mode server",
-    "service": "node server/app.js"
+    "service": "nodemon server/app.js"
   },
   "dependencies": {
     "axios": "^0.21.0",
@@ -24,6 +24,7 @@
     "koa": "^2.13.0",
     "koa-router": "^10.0.0",
     "koa-send": "^5.0.1",
+    "koa-static": "^5.0.0",
     "lodash.get": "^4.4.2",
     "lodash.merge": "^4.6.2",
     "memory-fs": "^0.5.0",
