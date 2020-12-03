@@ -11,7 +11,7 @@
     "start": "npm run build:server && npm run build:client && npm run service",
     "build:client": "cross-env RUN_ENV=client vue-cli-service build",
     "build:server": "cross-env RUN_ENV=server vue-cli-service build --mode server",
-    "service": "node server/app.js"
+    "service": "nodemon server/app.js"
   },
   "dependencies": {
     "axios": "^0.21.0",

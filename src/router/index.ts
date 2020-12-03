@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 
 const routes: RouteConfig[] = [
     {
-        path: '/app/home',
+        path: '/app/test',
         name: 'home',
         component: () => import(/* webpackChunkName:"photo" */'../views/Home.vue'),
     },
