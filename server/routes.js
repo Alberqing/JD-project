@@ -3,13 +3,13 @@ const Router = require('koa-router');
 const router = new Router();
 
 
-router.get('/', (ctx, next) => {
+router.get('/app/test', async (ctx, next) => {
     const context = {
         title: "ssr test",
         url: ctx.url
     };
-    console.log(context, "/app/home");
-    ctx.serverRender(context);
+    await ctx.serverRender(context);
+    next();
 })
 
 module.exports = router.routes();

@@ -1,17 +1,21 @@
 import { createApp } from './main';
 
 export default (context: any) => {
+    if (Object.keys(context).length < 1) {
+        return;
+    }
     return new Promise((resolve, reject) => {
-        const { app, router, store } = createApp();
+        const { app, router, store } = createApp(context);
 
         router.push(context.url);
 
         router.onReady(() => {
             context.rendered = () => {
-                context.state = store.state;
-            };
-
-            resolve(app);
-        }, reject);
+              context.state = store.state
+            }
+      
+            resolve(app)
+          }, reject)
+      
     });
 };

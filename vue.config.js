@@ -7,7 +7,7 @@ const isServer = env.RUN_ENV === "server";
 
 module.exports = {
     lintOnSave: false,
-    publicPath: "./",
+    publicPath: "/",
     outputDir: `dist/${env.RUN_ENV}`,
     configureWebpack: {
         // 将 entry 指向应用程序的 server / client 文件

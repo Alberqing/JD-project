@@ -12,24 +12,27 @@ const renderer = createBundleRenderer(serverBundle, {
     template,
     clientMainfest,
 });
-const renderToString = function (context) {
-    return new Promise((resolve, reject) => {
-        renderer.renderToString(context, (err, html) => {
-            if (err) {
-                reject(err);
-            }
-            resolve(html);
-        });
-    });
-};
+
 module.exports = async (ctx, next) => {
-    return async function serverRender(context) {
-        const html = await renderToString(context);
-        console.log(html);
-        ctx.body = html;
-        ctx.type = 'text/html';
+    ctx.serverRender = async context => {
+        try {
+            const html = await new Promise((resolve, reject) => {
+                renderer.renderToString(context, (err, html) => {
+                    if (err) {
+                        console.log(err);
+                        reject(err);
+                        return;
+                    }
+                    resolve(html);
+                });
+            });
+
+            ctx.body = html;
+            ctx.type = 'text/html';
+        } catch (err) {
+            console.log(err);
+        }
     };
-    // console.log(ctx);
-    // console.log(next, 6789);
-    // await next();
+
+    await next();
 };

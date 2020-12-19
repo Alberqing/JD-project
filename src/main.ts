@@ -11,10 +11,12 @@ if (process.client) {
 
 Vue.config.productionTip = false;
 
-export function createApp() {
+export function createApp(context: any = {}) {
     const router = createRouter();
     const store = createStore();
-
+    if (context) {
+        store.replaceState(Object.assign(store.state, context));
+    }
     const app = new Vue({
         router,
         store,

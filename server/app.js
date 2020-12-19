@@ -1,26 +1,17 @@
 const Koa = require('koa');
 const serverRender = require('./middleware/serverRender');
-const koaStatic = require('koa-static')
 const Router = require('koa-router');
-// const routes = require('./routes');
-const mapRoute = require('./middleware/mapRoute');
-const path = require('path');
+const routes = require("./routes");
 
-const router = new Router();
 const app = new Koa();
+const router = new Router();
 
-const resolve = file => path.resolve(__dirname, file);
-
-app.use(koaStatic(resolve('./dist')))
-// app.use(serverRender)
-// router.use('/app/home', require('./routes'))
-
-// app.use(router.routes());
-// app.use(router.allowedMethods());
-// app.use(router.allowedMethods());
+app.use(serverRender);
 
 // 第 3 步：添加一个中间件来处理所有请求
-app.use(mapRoute);
+app.use(routes);
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx);
