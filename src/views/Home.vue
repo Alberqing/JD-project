@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    1111111
+    {{title}}
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   </div>
 </template>
@@ -13,9 +13,19 @@ import { createStore } from '../store';
 // export const PAGE_ROUTE = '/home1111';
 
 export default {
-  name: 'Home',
-  components: {
-    // HelloWorld,
-  },
+	name: 'Home',
+	data() {
+		return {
+			title: '',
+		}
+	},
+	components: {
+	// HelloWorld,
+	},
+	mounted() {
+		const { title } = window.__INITIAL_STATE__;
+		console.log(title);
+		this.title = title;
+	}
 };
 </script>

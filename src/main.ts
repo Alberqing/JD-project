@@ -14,6 +14,7 @@ Vue.config.productionTip = false;
 export function createApp(context: any = {}) {
     const router = createRouter();
     const store = createStore();
+    // console.log(context);
     if (context) {
         store.replaceState(Object.assign(store.state, context));
     }
