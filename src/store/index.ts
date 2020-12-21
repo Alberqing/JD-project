@@ -6,12 +6,13 @@ Vue.use(Vuex);
 export function createStore() {
     return new Vuex.Store({
         state: {
+            title: '',
         },
-        mutations: {
-        },
-        actions: {
-        },
-        modules: {
+        getters: {
+            title: state => {
+                console.log(state);
+                return state.title;
+            },
         },
     });
 }

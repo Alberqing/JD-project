@@ -1,11 +1,12 @@
 const Router = require('koa-router');
+const test = require('./controller/app/test');
 
 const router = new Router();
 
 
 router.get('/app/test', async (ctx, next) => {
     const context = {
-        title: "ssr test",
+        pageData: test,
         url: ctx.url
     };
     await ctx.serverRender(context);

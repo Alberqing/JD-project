@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    {{title}}
+    {{pageData.title}}
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   </div>
 </template>
@@ -16,16 +16,22 @@ export default {
 	name: 'Home',
 	data() {
 		return {
-			title: '',
+			// title: '',
 		}
 	},
 	components: {
 	// HelloWorld,
 	},
-	mounted() {
-		const { title } = window.__INITIAL_STATE__;
-		console.log(title);
-		this.title = title;
-	}
+	computed: {
+        pageData() {
+            return this.$store.state.pageData;
+        },
+    },
 };
 </script>
+<style>
+	.home {
+		font-size: 0.1rem;
+		color: red;
+	}
+</style>
