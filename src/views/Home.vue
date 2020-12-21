@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    1111
+    1111111
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   </div>
 </template>

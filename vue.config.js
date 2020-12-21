@@ -1,13 +1,16 @@
+const webpack = require('webpack');
 const VueSSRServerPlugin = require("vue-server-renderer/server-plugin");
 const VueSSRClientPlugin = require("vue-server-renderer/client-plugin");
 const nodeExternals = require("webpack-node-externals");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+
 const env = process.env;
 const isServer = env.RUN_ENV === "server";
 
 module.exports = {
     lintOnSave: false,
-    publicPath: "/",
+    publicPath: path.resolve(__dirname, '/'),
     outputDir: `dist/${env.RUN_ENV}`,
     configureWebpack: {
         // 将 entry 指向应用程序的 server / client 文件
@@ -30,7 +33,7 @@ module.exports = {
                 // 不要外置化 webpack 需要处理的依赖模块。
                 // 你可以在这里添加更多的文件类型。例如，未处理 *.vue 原始文件，
                 // 你还应该将修改 `global`（例如 polyfill）的依赖模块列入白名单
-                allowlist: /\.(css|less)$/,
+                // allowlist: /\.(css|less)$/,
             })
             : undefined,
         optimization: { splitChunks: isServer ? false : undefined },
@@ -48,7 +51,11 @@ module.exports = {
                     removeComments: false
                 }
             })
-        ]
+        ],
+        devServer: {
+            contentBase: './dist',
+            hot: true,
+        },
     },
 };
 
