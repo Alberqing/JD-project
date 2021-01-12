@@ -9,8 +9,7 @@ export function createStore() {
             title: '',
         },
         getters: {
-            title: state => {
-                console.log(state);
+            title: (state) => {
                 return state.title;
             },
         },

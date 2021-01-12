@@ -8,7 +8,7 @@ module.exports = function() {
     const pages = path.join(routePagePath, './*.vue')
 
     console.log(pages);
-     // 将路由页面所在目录添加到依赖当中，当有文件变化，会触发这个loader
+    // 将路由页面所在目录添加到依赖当中，当有文件变化，会触发这个loader
     this.addContextDependency(pages);
 
     const fileNames = globby.sync(pages, {ignore: [], absolute: true});
@@ -38,7 +38,7 @@ module.exports = function() {
                 chunkName = block[1].split('/')[1];
             }
         }
-        
+
         if(content.match(LAZY_LOAD) !== null) {
             if(content.match(LAZY_LOAD)[0].split('=')[1].trim() !== 'false') {
                 result.component = `() => import(/* webpackChunkName: '${chunkName}' */ '${fileName}')`

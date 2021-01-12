@@ -15,7 +15,7 @@ export default (context: any) => {
                 return reject({ code: 404 });
             }
             // 对所有匹配的路由组件调用 `asyncData()`
-            Promise.all(matchedComponents.map((Component:any) => {
+            Promise.all(matchedComponents.map((Component: any) => {
                 if (Component.asyncData) {
                     return Component.asyncData({
                         store,
@@ -33,6 +33,6 @@ export default (context: any) => {
                 resolve(app);
             }).catch(reject);
         }, reject);
-      
+
     });
 };

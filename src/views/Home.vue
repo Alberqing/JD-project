@@ -26,7 +26,9 @@ export default {
         pageData() {
             return this.$store.state.pageData;
         },
-    },
+	},
+	mounted() {
+	}
 };
 </script>
 <style>

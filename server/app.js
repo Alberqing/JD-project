@@ -10,19 +10,16 @@ const router = new Router();
 
 const resolve = file => path.resolve(__dirname, file);
 
-app.use(koaStatic(resolve('../dist/client')))
+app.use(koaStatic(resolve('../dist/static/ssr')))
 
 app.use(serverRender);
-
-// 第 3 步：添加一个中间件来处理所有请求
 app.use(routes);
-app.use(router.routes());
 app.use(router.allowedMethods());
 
 app.on('error', (err, ctx) => {
     console.error('server error', err, ctx);
 });
 
-app.listen(3000, () => {
-    console.log('服务器启动在http://127.0.0.1:3000');
+app.listen(8082, () => {
+    console.log('服务器启动在http://127.0.0.1:8082');
 })
