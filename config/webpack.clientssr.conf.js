@@ -7,6 +7,7 @@ const {VueLoaderPlugin} = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV === 'production';
 const isDevEnv = process.env.NODE_ENV === 'development';
@@ -48,6 +49,11 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.vue$/,
+                loader:'vue-loader',
+                include: paths.vueSrc
+            },
+            {
                 test: /\.js$/,
                 use: {
                     loader: 'babel-loader',
@@ -78,7 +84,6 @@ module.exports = {
                     {
                         loader: MiniCssExtractPlugin.loader,
                     },
-                    'vue-style-loader',
                     'css-loader',
                     'postcss-loader',
                 ],
@@ -87,15 +92,13 @@ module.exports = {
             {
                 test: /\.less$/,
                 use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
                     'css-loader',
                     'postcss-loader',
                     'less-loader'
                 ]
-            },
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader',
-                include: paths.vueSrc
             },
             {
                 test: /\.(png|jpe?g|gif|mp4|webm|ogg|mp3|wav|flac|aac|woff2?|eot|ttf|otf|svg)(\?.*)?$/,

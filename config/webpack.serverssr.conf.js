@@ -77,10 +77,6 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',
-                options: {
-                    // enable CSS extraction
-                    extractCSS: true,
-                },
                 include: paths.vueSrc,
             },
             {
